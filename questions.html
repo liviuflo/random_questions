@@ -59,10 +59,46 @@
         font-size: medium;
         text-align: left;
     }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 1em;
+        border: 1px solid #888;
+        width: 90%;
+        font-size: medium;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
 
 <body>
-    <ol id="questions">
+    <ol id="questions" hidden>
         <li>Dacă ai putea locui oriunde în lume, unde ai vrea să locuiești?</li>
         <li>Care e cartea ta preferată?</li>
         <li>Ce te amuză aproape oricând?</li>
@@ -119,7 +155,7 @@
         <li>Care e un loc reprezentativ pentru copilăria ta?</li>
         <li>Îți place să vorbești la telefon?</li>
     </ol>
-    <div id="count">
+    <div id="count" class="unselectable" onclick="toggleQuestions()">
         Întrebări rămase: <span id="questions-left-count"></span>
     </div>
     <div id="question-holder">
@@ -130,6 +166,16 @@
         Altă întrebare!
     </div>
 
+    <div id="modal-root" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Parola, s'il vous plait!</p>
+            <input id="password" type="password" placeholder="12345678">
+            <div id="submit-passowrd" class="button unselectable" onclick="checkPassword()">Confirm</div>
+        </div>
+
+    </div>
+
 </body>
 <script>
     const SOURCE_LIST_ID = "questions";
@@ -137,6 +183,11 @@
     const NEXT_QUESTION_ID = "next-question";
     const COUNT_ID = "count";
     const QUESTIONS_LEFT_COUNT_ID = "questions-left-count";
+    const MODAL_ID = "modal-root";
+    const PASSWORD_ID = "password";
+    const CORRECT_PASSWORD = "alabalaportocala"
+
+    var questionsAreVisible = false;
 
     var questionElements = document.getElementById(SOURCE_LIST_ID).children;
     const allQuestions = Array.from(questionElements).map(questionElement => questionElement.textContent);
@@ -156,11 +207,9 @@
     function nextQuestion() {
         var randomIndex = Math.floor(Math.random() * remainingQuestions.length);
         var randomQuestion = remainingQuestions[randomIndex];
-        
+
         remainingQuestions.splice(randomIndex, 1);
         document.getElementById(QUESTION_ID).textContent = randomQuestion;
-
-        console.log(remainingQuestions);
 
         if (remainingQuestions.length == 0)
             resetQuestions();
@@ -168,6 +217,33 @@
         setQuestionCount();
     }
 
+    function toggleQuestions() {
+        if (questionsAreVisible) {
+            document.getElementById(SOURCE_LIST_ID).style.display = "none"
+            questionsAreVisible = false;
+            return;
+        }
+
+        document.getElementById(MODAL_ID).style.display = "block"
+    }
+
+    function checkPassword() {
+        var inputPassword = document.getElementById(PASSWORD_ID).value;
+        console.log(inputPassword);
+        if (inputPassword != CORRECT_PASSWORD) return;
+
+        closeModal();
+        showQuestions();
+    }
+
+    function showQuestions() {
+        document.getElementById(SOURCE_LIST_ID).style.display = "block";
+        questionsAreVisible = true;
+    }
+
+    function closeModal() {
+        document.getElementById(MODAL_ID).style.display = "none";
+    }
 </script>
 
 </html>

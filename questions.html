@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body {
+        font-family: sans-serif;
+        font-weight: bold;
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .unselectable {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .button {
+        padding: 1em;
+        background-color: cornflowerblue;
+        color: white;
+        display: inline-block;
+        border-radius: 1em;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .button:hover {
+        cursor: pointer;
+    }
+
+    .button:active {
+        box-shadow: rgba(0, 0, 0, 0.39) 0px 3px 8px;
+    }
+
+    #question-holder {
+        margin-top: 1em;
+        margin-bottom: 3em;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        /* letter-spacing: 0.04em; */
+    }
+
+    #count {
+        margin-top: 1em;
+        font-weight: normal;
+        font-size: x-small;
+        color: rgb(160, 87, 65);
+    }
+
+    #questions {
+        font-size: medium;
+        text-align: left;
+    }
+</style>
+
+<body>
+    <ol id="questions">
+        <li>Dacă ai putea locui oriunde în lume, unde ai vrea să locuiești?</li>
+        <li>Care e cartea ta preferată?</li>
+        <li>Ce te amuză aproape oricând?</li>
+        <li>Care e ultima carte pe care ai citit-o?</li>
+        <li>Care e sportul tău preferat?</li>
+        <li>Ce preferi: spălatul vaselor sau datul cu aspiratorul?</li>
+        <li>Care e autorul tău preferat?</li>
+        <li>Îți plac surprizele? De ce (nu)?</li>
+        <li>Descrie unul dintre hobby-urile tale.</li>
+        <li>Ce acțiuni ale celorlalți te irită?</li>
+        <li>Care e cea mai înaltă clădire în care ai urcat?</li>
+        <li>Care e ultimul articol de îmbrăcăminte pe care l-ai cumpărat?</li>
+        <li>La ce oră te trezești în timpul săptămânii?</li>
+        <li>Câte limbi vorbești?</li>
+        <li>Ce îți place să ronțăi?</li>
+        <li>Care e cel mai bun fel de mâncare pe care știi să îl gătești?</li>
+        <li>Ce faci când vezi un păianjen?</li>
+        <li>Care e cea mai lungă călătorie în care ai fost?</li>
+        <li>Dacă ai putea face cunoștință cu orice personalitate din istorie, pe cine ai alege?</li>
+        <li>Când erai mic/ă, ce voiai să devii când o să fii mare?</li>
+        <li>McDonald's, KFC sau Burger King? Sau altceva...</li>
+        <li>Dacă ar trebui să îți schimbi numele, ce nume ai alege?</li>
+        <li>Dacă ai putea primi răspuns la orice întrebare, ce ai întreba?</li>
+        <li>Care e locul tău preferat din localitatea ta?</li>
+        <li>Cât de des asculți muzică, și cum?</li>
+        <li>Ce abilitate ți-ar plăcea să ai?</li>
+        <li>Care e anotimpul tău preferat?</li>
+        <li>Dacă ai o zi liberă, cum o petreci?</li>
+        <li>Dacă ai putea călători în spațiu, ai vrea?</li>
+        <li>Dacă ai putea învăța instantaneu o limbă străină, ce limbă ai alege?</li>
+        <li>Care e o realizare cu care te mândrești?</li>
+        <li>Ai frați/surori? Dacă nu, ți-ai dori?</li>
+        <li>Dacă ar trebui să ai o anumită vârstă pentru tot restul vieții, ce vârstă ai alege?</li>
+        <li>Vara, preferi să mergi la munte sau la mare?</li>
+        <li>Când ai interacționat ultima oară cu o persoană străină?</li>
+        <li>Care e un lucru pe care l-ai învățat recent?</li>
+        <li>Ce carte ai primit anul trecut în tabără? Ai citit-o?</li>
+        <li>Care a fost materia ta preferată, în școală/liceu?</li>
+        <li>Care a fost cel mai drăguț cadou pe care l-ai primit?</li>
+        <li>Cu ce mijloc de transport te deplasezi cel mai des?</li>
+        <li>În ce parte a sălii stai cel mai des, la adunare?</li>
+        <li>Cum te înțelegi cu verișorii tăi?</li>
+        <li>Ai o cântare preferată?</li>
+        <li>Pe cine admiri foarte mult?</li>
+        <li>Ai donat vreodată sânge?</li>
+        <li>Îți place să primești ajutor, când nu reușești ceva?</li>
+        <li>Câte tricouri ai luat cu tine, pentru tabăra asta?</li>
+        <li>Cât de des îți încarci telefonul?</li>
+        <li>Știi să conduci? Dacă da, de cât timp? Dacă nu, plănuiești să înveți?</li>
+        <li>Ai talent la desen?</li>
+        <li>La ce oră iei, de obicei, prânzul?</li>
+        <li>Unde erai, anul trecut, în perioada asta?</li>
+        <li>La ce ți se pare că te pricepi foarte bine?</li>
+        <li>Care e un loc reprezentativ pentru copilăria ta?</li>
+        <li>Îți place să vorbești la telefon?</li>
+    </ol>
+    <div id="count">
+        Întrebări rămase: <span id="questions-left-count"></span>
+    </div>
+    <div id="question-holder">
+        <span id="question">Hello! Apasă butonul ca să primești o întrebare 😊</span>
+    </div>
+
+    <div class="button unselectable" id="next-question" onclick="nextQuestion()">
+        Altă întrebare!
+    </div>
+
+</body>
+<script>
+    const SOURCE_LIST_ID = "questions";
+    const QUESTION_ID = "question";
+    const NEXT_QUESTION_ID = "next-question";
+    const COUNT_ID = "count";
+    const QUESTIONS_LEFT_COUNT_ID = "questions-left-count";
+
+    var questionElements = document.getElementById(SOURCE_LIST_ID).children;
+    const allQuestions = Array.from(questionElements).map(questionElement => questionElement.textContent);
+    var remainingQuestions = Array.from(allQuestions);
+
+    function setQuestionCount() {
+        var questionCount = remainingQuestions.length;
+        document.getElementById(QUESTIONS_LEFT_COUNT_ID).textContent = questionCount;
+    }
+
+    setQuestionCount();
+
+    function resetQuestions() {
+        remainingQuestions = Array.from(allQuestions);
+    }
+
+    function nextQuestion() {
+        var randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+        var randomQuestion = remainingQuestions[randomIndex];
+        
+        remainingQuestions.splice(randomIndex, 1);
+        document.getElementById(QUESTION_ID).textContent = randomQuestion;
+
+        console.log(remainingQuestions);
+
+        if (remainingQuestions.length == 0)
+            resetQuestions();
+
+        setQuestionCount();
+    }
+
+</script>
+
+</html>

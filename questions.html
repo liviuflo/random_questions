@@ -200,6 +200,14 @@
 
 </body>
 <script>
+    function hideElement(elementId) {
+        document.getElementById(elementId).style.display = "none"
+    }
+
+    function showElement(elementId) {
+        document.getElementById(elementId).style.display = "block"
+    }
+
     const SOURCE_LIST_ID = "questions";
     const QUESTION_ID = "question";
     const NEXT_QUESTION_ID = "next-question";
@@ -241,32 +249,28 @@
 
     function toggleQuestions() {
         if (questionsAreVisible) {
-            document.getElementById(SOURCE_LIST_ID).style.display = "none"
+            hideElement(SOURCE_LIST_ID);
             questionsAreVisible = false;
             return;
         }
 
-        document.getElementById(MODAL_ID).style.display = "block"
+        showElement(MODAL_ID);
     }
 
     function checkPassword() {
         var inputPassword = document.getElementById(PASSWORD_ID).value;
-        if (inputPassword != CORRECT_PASSWORD){
+        if (inputPassword != CORRECT_PASSWORD) {
             alert("hah, nu-i asta!");
             return;
         }
 
-        closeModal();
+        hideElement(MODAL_ID);
         showQuestions();
     }
 
     function showQuestions() {
-        document.getElementById(SOURCE_LIST_ID).style.display = "block";
+        showElement(SOURCE_LIST_ID);
         questionsAreVisible = true;
-    }
-
-    function closeModal() {
-        document.getElementById(MODAL_ID).style.display = "none";
     }
 </script>
 

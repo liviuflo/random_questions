@@ -251,8 +251,10 @@
 
     function checkPassword() {
         var inputPassword = document.getElementById(PASSWORD_ID).value;
-        console.log(inputPassword);
-        if (inputPassword != CORRECT_PASSWORD) return;
+        if (inputPassword != CORRECT_PASSWORD){
+            alert("hah, nu-i asta!");
+            return;
+        }
 
         closeModal();
         showQuestions();
